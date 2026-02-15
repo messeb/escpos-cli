@@ -1,0 +1,20 @@
+# golangci-lint configuration
+# https://golangci-lint.run/usage/configuration/
+
+version: "2"
+
+run:
+  timeout: 5m
+  tests: true
+
+linters:
+  enable:
+    - errcheck      # Check for unchecked errors
+    - govet         # Vet examines Go source code
+    - staticcheck   # Go static analysis
+    - unused        # Check for unused constants, variables, functions and types
+    - ineffassign   # Detect ineffectual assignments
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
