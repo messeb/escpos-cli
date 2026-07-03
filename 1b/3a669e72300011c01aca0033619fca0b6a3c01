@@ -1,0 +1,27 @@
+cmd/escpos/main.go
+  s_bfde54996e8dfd::t_dd95510dedd4c4 15
+  s_bfde54996e8dfd::t_7fa969852aeb59 43-52
+  s_bfde54996e8dfd::t_b2c600580b2bf6 25,30
+.claude/CLAUDE.md
+  s_bfde54996e8dfd::t_abcf445622fa1e 20,23-29
+internal/escpos/printer_test.go
+  s_bfde54996e8dfd::t_4822348d063c13 258-322
+internal/escpos/printer.go
+  s_bfde54996e8dfd::t_c8178fa1f20914 10-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "1b3a669e72300011c01aca0033619fca0b6a3c01",
+  "prompts": {},
+  "sessions": {
+    "s_bfde54996e8dfd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b47e7881-6ca0-4789-a211-6e4c30a91bd9",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
