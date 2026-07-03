@@ -255,6 +255,71 @@ func TestSendToPrinter_SpecialCharacters(t *testing.T) {
 	}
 }
 
+// TestWriteToFile tests writing raw ESC/POS bytes to a file (export mode).
+func TestWriteToFile(t *testing.T) {
+	tests := []struct {
+		name    string
+		data    []byte
+		path    func(dir string) string
+		wantErr bool
+	}{
+		{
+			name: "writes bytes verbatim",
+			data: []byte{0x1B, 0x40, 'H', 'i', 0x0A},
+			path: func(dir string) string { return filepath.Join(dir, "out.bin") },
+		},
+		{
+			name: "writes empty data",
+			data: []byte{},
+			path: func(dir string) string { return filepath.Join(dir, "empty.bin") },
+		},
+		{
+			name: "writes all byte values without corruption",
+			data: func() []byte {
+				b := make([]byte, 256)
+				for i := range b {
+					b[i] = byte(i)
+				}
+				return b
+			}(),
+			path: func(dir string) string { return filepath.Join(dir, "all.bin") },
+		},
+		{
+			name:    "errors on nonexistent directory",
+			data:    []byte{0x01},
+			path:    func(dir string) string { return filepath.Join(dir, "nope", "out.bin") },
+			wantErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			dir := t.TempDir()
+			path := tt.path(dir)
+
+			err := WriteToFile(tt.data, path)
+
+			if tt.wantErr {
+				if err == nil {
+					t.Fatalf("expected error, got nil")
+				}
+				return
+			}
+			if err != nil {
+				t.Fatalf("unexpected error: %v", err)
+			}
+
+			got, readErr := os.ReadFile(path)
+			if readErr != nil {
+				t.Fatalf("could not read back file: %v", readErr)
+			}
+			if string(got) != string(tt.data) {
+				t.Fatalf("bytes mismatch: got %v, want %v", got, tt.data)
+			}
+		})
+	}
+}
+
 // Benchmark tests
 func BenchmarkSendToPrinter(b *testing.B) {
 	if os.Getenv("CI") != "" {

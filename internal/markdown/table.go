@@ -298,7 +298,7 @@ func (tr *TableRenderer) renderVerticalLayout() []byte {
 	for rowIdx := 1; rowIdx < len(tr.rows); rowIdx++ {
 		row := tr.rows[rowIdx]
 
-		buf.WriteString(fmt.Sprintf("--- Entry %d ---\n", rowIdx))
+		fmt.Fprintf(&buf, "--- Entry %d ---\n", rowIdx)
 
 		for colIdx := 0; colIdx < len(headers); colIdx++ {
 			header := ""
@@ -311,7 +311,7 @@ func (tr *TableRenderer) renderVerticalLayout() []byte {
 				value = row[colIdx]
 			}
 
-			buf.WriteString(fmt.Sprintf("%s: %s\n", header, value))
+			fmt.Fprintf(&buf, "%s: %s\n", header, value)
 		}
 
 		buf.WriteByte('\n')

@@ -7,6 +7,15 @@ import (
 	"time"
 )
 
+// WriteToFile writes raw ESC/POS data to the given path. This is the export
+// path used instead of SendToPrinter when CUPS/lpr is unavailable (e.g. Windows).
+func WriteToFile(data []byte, path string) error {
+	if err := os.WriteFile(path, data, 0644); err != nil {
+		return fmt.Errorf("failed to write output file %q: %w", path, err)
+	}
+	return nil
+}
+
 // SendToPrinter sends ESC/POS data to the specified printer via lpr
 func SendToPrinter(data []byte, printerName string) error {
 	// Clear any stuck jobs

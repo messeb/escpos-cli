@@ -1,6 +1,6 @@
 # escpos
 
-A Go CLI tool that converts markdown files to ESC/POS format and prints them on POS-80 thermal printers via macOS CUPS.
+A Go CLI tool that converts markdown files to ESC/POS format and prints them on POS-80 thermal printers via macOS CUPS, or exports the raw ESC/POS bytes to a file for use on any platform (including Windows).
 
 [![Buy Printer on Amazon](https://img.shields.io/badge/Buy%20Printer-Amazon-FF9900?logo=amazon&logoColor=white)](https://amzn.to/3OjyAHc)
 
@@ -14,6 +14,7 @@ A Go CLI tool that converts markdown files to ESC/POS format and prints them on 
 - **Tables** -- Receipt format (2 columns), bordered (3 columns), vertical key-value (4+ columns)
 - **Images** -- PNG, JPG, BMP converted to 1-bit bitmaps with configurable threshold
 - **Barcodes** -- QR codes, PDF417, and DataMatrix via fenced code blocks
+- **Raw file export** -- Write the ESC/POS byte stream to a file with `-output`, bypassing CUPS (works on Windows)
 
 ## Examples
 
@@ -61,7 +62,13 @@ escpos [flags] [file.md]
 escpos receipt.md                                    # default printer
 escpos -printer Printer_POS_80 -file receipt.md      # explicit printer
 escpos -printer MyPrinter receipt.md -threshold 60   # darker images
+escpos -file receipt.md -output receipt.bin          # export raw ESC/POS to a file (no CUPS)
 ```
+
+### Output modes
+
+- **Print (default):** renders the markdown and sends it to the printer via CUPS (`lpr`).
+- **Export (`-output <file>`):** writes the raw ESC/POS byte stream to `<file>` and skips CUPS entirely. Use this on platforms without CUPS (e.g. Windows), or to capture the bytes and send them to a printer through your own transport. `-printer` is ignored in this mode.
 
 ### Flags
 
@@ -69,6 +76,7 @@ escpos -printer MyPrinter receipt.md -threshold 60   # darker images
 |------|---------|-------------|
 | `-printer` | `Printer_POS_80` | CUPS printer name |
 | `-file` | | Markdown file to print |
+| `-output` | | Write raw ESC/POS to this file instead of printing (bypasses CUPS) |
 | `-threshold` | `75` | Gray threshold for images (0-100, higher = more black) |
 
 The first positional argument is treated as the markdown file if `-file` is not specified.
@@ -267,7 +275,7 @@ printer/
 ├── internal/
 │   ├── escpos/            # ESC/POS protocol primitives
 │   │   ├── commands.go    # Command constants (Init, Bold, Cut, etc.)
-│   │   ├── printer.go     # Print job management (lpr/CUPS)
+│   │   ├── printer.go     # Print job management (lpr/CUPS) and raw file export
 │   │   ├── image.go       # Image-to-bitmap conversion
 │   │   └── barcode.go     # QR, PDF417, DataMatrix generation
 │   └── markdown/          # Markdown rendering engine

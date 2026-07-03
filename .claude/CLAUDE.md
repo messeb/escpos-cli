@@ -17,9 +17,16 @@ go build -o escpos cmd/escpos/main.go
 ```bash
 ./escpos -file document.md                           # Use default printer (Printer_POS_80)
 ./escpos -printer MyPrinter -file document.md        # Specify printer
+./escpos -file document.md -output receipt.bin       # Write raw ESC/POS to file (bypasses CUPS)
 ./escpos -file document.md -threshold 80             # Adjust image darkness
 ./escpos document.md                                 # Positional argument
-``` 
+```
+
+**Output modes:**
+- Default: renders and sends to the printer via CUPS (`lpr`).
+- `-output <file>`: writes the raw ESC/POS byte stream to `<file>` and skips CUPS
+  entirely. Useful on platforms without CUPS (e.g. Windows) or to capture bytes
+  for a custom transport. `-printer` is ignored in this mode.
 ## Architecture
 
 ### Project Structure
