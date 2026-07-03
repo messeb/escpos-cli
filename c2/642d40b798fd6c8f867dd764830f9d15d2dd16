@@ -1,0 +1,19 @@
+docs/superpowers/specs/2026-07-03-output-raw-file-design.md
+  s_bfde54996e8dfd::t_825959e8638bc8 1-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "c2642d40b798fd6c8f867dd764830f9d15d2dd16",
+  "prompts": {},
+  "sessions": {
+    "s_bfde54996e8dfd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b47e7881-6ca0-4789-a211-6e4c30a91bd9",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
