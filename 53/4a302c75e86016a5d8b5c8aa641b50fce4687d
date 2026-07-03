@@ -1,0 +1,20 @@
+internal/markdown/table.go
+  s_bfde54996e8dfd::t_52fffff53e2b0b 301
+  s_bfde54996e8dfd::t_d781d3a4741445 314
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "534a302c75e86016a5d8b5c8aa641b50fce4687d",
+  "prompts": {},
+  "sessions": {
+    "s_bfde54996e8dfd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b47e7881-6ca0-4789-a211-6e4c30a91bd9",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "Sebastian Messingfeld <sebastian@messeb.com>"
+    }
+  }
+}
